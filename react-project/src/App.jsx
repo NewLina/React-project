@@ -4,13 +4,15 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import FlashCard from './components/Flashcard';
 import Search from './components/Search';
-import dataList from './data';
+
 
 function App() {
   return (
     <>
     <Header></Header>
-    <main className='main'>Something</main>
+    <main className='main'>
+      <WordList></WordList>
+    </main>
     <Footer></Footer>
     </>
   );
