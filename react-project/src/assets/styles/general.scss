@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poltawski+Nowy:wght@400;500;600;700&display=swap');
+
+$quicksand:'Quicksand', sans-serif;
+$poltawski:'Poltawski Nowy', serif;
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+
+$camel: #b99470;
+$cornsilk: #FEFAE0;
+$alloy-orange: #c4661f;
+$russet: #783d19;
+$lemon-light: #f9ebc7;
+$dark-olive: #5f6f52;
+$light-green: #a9b388;
+$light-beige: #f4efe8;
+$white: #fffdfb;
+
+button {
+    cursor: pointer;
+}
