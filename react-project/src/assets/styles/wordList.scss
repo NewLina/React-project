@@ -1,2 +1,63 @@
 @import './general';
 @import './list-buttons';
+
+.heading {
+    padding: 2vw 0 0 0;
+    font-family: $poltawski;
+    font-weight: $bold;
+    font-size: 2vw;
+}
+.table{
+    padding: 1.5vw;
+    border-collapse: separate;
+    border-spacing: 0 1vw;
+}
+
+.table__item td{
+    padding-right: 2vw;
+    font-size: 1.7vw;
+}
+.table__heading th{
+    padding-right: 2vw;
+}
+
+button {
+    font-size: 1.2vw;
+    padding: 0.5vw;
+}
+
+.button-edit {
+    background-color: $alloy-orange;
+    border: 1px solid $russet;
+    color: $cornsilk;
+}
+.button-delete {
+    background-color: $russet;
+    border: 1px solid $russet;
+    color: $cornsilk;
+}
+
+.table__item__edited input{
+    padding: 0.5vw;
+    border: 1px solid $alloy-orange;
+    font-size: 1.2vw;
+    font-family: $quicksand;
+    &:focus{
+        background-color: $lemon-light;
+    }
+    &:focus-visible {
+        outline: 2px solid $russet;
+        border-radius: 3px;
+}
+}
+
+.button-save {
+    background-color: $lemon-light;
+    border: 1px solid $russet;
+    color: $russet; 
+}
+.button-cancel {
+    background-color: $camel;
+    border: 1px solid $russet;
+    color: $cornsilk;
+}
