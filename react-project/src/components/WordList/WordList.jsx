@@ -1,6 +1,6 @@
-import '../assets/styles/wordList.scss';
-import Word from './Word';
-import dataList from '../data';
+import './wordList.scss';
+import Word from '../Word/Word';
+import dataList from '../../data';
 
 function WordList() {
     let isEdited=false;

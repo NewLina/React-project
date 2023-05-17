@@ -1,4 +1,4 @@
-import '../assets/styles/wordList.scss';
+import '../WordList/wordList.scss';
 
 const Word = (props) => {
     const {english, transcription, russian, isEdited} = props;

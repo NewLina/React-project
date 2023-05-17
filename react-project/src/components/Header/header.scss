@@ -1,10 +1,10 @@
-@import './general';
+@import '../general';
 
 .header{
     height: 13vw;
-    background-color: $camel;
+    background-color: $dark-beige;
     font-family: $quicksand;
     font-weight: $semibold;
     font-size: 2vw;
-    color: $light-beige;
+    color: $white;
 }

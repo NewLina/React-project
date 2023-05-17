@@ -1,4 +1,4 @@
-import '../assets/styles/search.scss';
+import './search.scss';
 
 function Search() {
     

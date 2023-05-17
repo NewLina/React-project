@@ -1,0 +1,15 @@
+@import '../general';
+
+.main {
+  height: 73vh;
+ // height: fit-content;
+  font-family: $quicksand;
+  font-weight: $regular;
+  font-size: 1.7vw;
+  background-color: $light-grey;
+}
+
+.flashcards-container{
+  display: flex;
+  justify-content: center;
+}

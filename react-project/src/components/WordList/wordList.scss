@@ -1,11 +1,12 @@
-@import './general';
-@import './list-buttons';
+@import '../general';
+@import '../Buttons/listButtons';
 
 .heading {
     padding: 2vw 0 0 0;
     font-family: $poltawski;
     font-weight: $bold;
     font-size: 2vw;
+    color: $dark-green;
 }
 .table{
     padding: 1.5vw;
@@ -27,37 +28,37 @@ button {
 }
 
 .button-edit {
-    background-color: $alloy-orange;
-    border: 1px solid $russet;
-    color: $cornsilk;
+    background-color: $lemon;
+    border: 1px solid $lemon;
+    color: $russet;
 }
 .button-delete {
-    background-color: $russet;
-    border: 1px solid $russet;
-    color: $cornsilk;
+    background-color: $dark-green;
+    border: 1px solid $dark-olive;
+    color: $light-grey;
 }
 
 .table__item__edited input{
     padding: 0.5vw;
-    border: 1px solid $alloy-orange;
+    border: 1px solid $light-green;
     font-size: 1.2vw;
     font-family: $quicksand;
     &:focus{
-        background-color: $lemon-light;
+        background-color: $light-beige;
     }
     &:focus-visible {
-        outline: 2px solid $russet;
+        outline: 2px solid $dark-green;
         border-radius: 3px;
 }
 }
 
 .button-save {
-    background-color: $lemon-light;
-    border: 1px solid $russet;
-    color: $russet; 
+    background-color: $light-green;
+    border: 1px solid $light-green;
+    color: $cornsilk; 
 }
 .button-cancel {
-    background-color: $camel;
-    border: 1px solid $russet;
-    color: $cornsilk;
+    background-color: $lemon;
+    border: 1px solid $lemon;
+    color: $russet;
 }
