@@ -1,8 +1,7 @@
 @import '../general';
 
 .main {
-  height: 73vh;
- // height: fit-content;
+  height: fit-content;
   font-family: $quicksand;
   font-weight: $regular;
   font-size: 1.7vw;
@@ -12,4 +11,5 @@
 .flashcards-container{
   display: flex;
   justify-content: center;
+  padding-bottom: 5%;
 }
