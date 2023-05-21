@@ -3,7 +3,6 @@ import Word from '../Word/Word';
 import dataList from '../../data';
 
 function WordList() {
-    let isEdited=false;
     return (
         <table className='table'>
             <caption className='heading'>List of Words</caption>
@@ -18,7 +17,7 @@ function WordList() {
             <tbody className='table__content'>
                 {
                     dataList.map ((item) => {
-                        return <Word key={item.id} {...item} isEdited={isEdited} />
+                        return <Word key={item.id} {...item} />
                     })
                 }
             </tbody>
