@@ -2,13 +2,13 @@ import './flashcard.scss';
 import {useState} from 'react';
 
 function Flashcard(props) {
-    const {english, transcription, russian} = props;
+    const {english, transcription, russian, id} = props;
     const [checked, setChecked] = useState(false);
     const handleChange = () => {
         setChecked(!checked);
     }
     return (
-    <div className='flashcard'>
+    <div className='flashcard' id={id}>
         <div className='flashcard__english'>{english}</div>
         <div className='flashcard__transcription'>{transcription}</div>
         <div className='flashcard__translation' onClick={handleChange}>

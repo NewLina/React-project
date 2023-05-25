@@ -1,0 +1,17 @@
+@import '../general';
+
+.flashcards-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5%;
+    overflow: hidden;
+    
+}
+
+.inner{
+    white-space: nowrap;
+    transition: transform 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
