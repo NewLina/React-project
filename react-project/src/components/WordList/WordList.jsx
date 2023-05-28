@@ -1,6 +1,6 @@
 import './wordList.scss';
 import Word from '../Word/Word';
-import dataList from '../../data';
+import {dataList} from '../../data';
 
 function WordList() {
     return (

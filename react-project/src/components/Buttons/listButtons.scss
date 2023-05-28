@@ -1,0 +1,16 @@
+@mixin arrow($color) {
+    background-color: $light-grey;
+    color: $color;
+    border: none;
+        span{
+            font-size: 60px;
+        }
+        &:disabled{
+            color: $light-grey;
+            cursor: default;
+        }
+        &:hover{
+            transform: scale(1.2);
+        }
+    cursor: pointer;
+    }
