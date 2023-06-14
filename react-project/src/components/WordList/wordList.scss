@@ -5,7 +5,7 @@
     padding: 2vw 0 0 0;
     font-family: $poltawski;
     font-weight: $bold;
-    font-size: 2vw;
+    font-size: 2.3vw;
     color: $dark-green;
 }
 .table{
@@ -22,20 +22,13 @@
     padding-right: 2vw;
 }
 
-button {
-    font-size: 1.2vw;
-    padding: 0.5vw;
-}
 
 .button-edit {
-    background-color: $lemon;
-    border: 1px solid $lemon;
-    color: $russet;
+    @include word-list-button ($lemon, $lemon, $russet);
 }
+
 .button-delete {
-    background-color: $dark-green;
-    border: 1px solid $dark-olive;
-    color: $light-grey;
+    @include word-list-button ($dark-green, $dark-olive, $light-grey);
 }
 
 .table__item__edited input{
@@ -53,12 +46,39 @@ button {
 }
 
 .button-save {
-    background-color: $light-green;
-    border: 1px solid $light-green;
-    color: $cornsilk; 
+    @include word-list-button ($light-green, $light-green, $cornsilk);
 }
 .button-cancel {
-    background-color: $lemon;
-    border: 1px solid $lemon;
-    color: $russet;
+    @include word-list-button ($light-red, $light-red, $cornsilk);
+}
+
+@media screen and (max-width: 699px) {
+.heading {
+    font-size: 5vw;
+}
+.table__item td{
+    font-size: 3.5vw;
+}
+.table__heading th{
+    font-size: 3vw;
+}
+.button-edit, .button-delete, .button-save, .button-cancel {
+    font-size: 3vw;
+    padding: 0.5vw;
+}}
+
+@media screen and (min-width: 700px) and (max-width: 1399px) {
+.heading {
+    font-size: 3vw;
+}
+.table__item td{
+    font-size: 2.2vw;
+}
+.table__heading th{
+    font-size: 2.1vw;
+}
+.button-edit, .button-delete, .button-save, .button-cancel {
+    font-size: 2vw;
+    padding: 0.5vw;
+}
 }

@@ -14,3 +14,11 @@
         }
     cursor: pointer;
     }
+
+    @mixin word-list-button($background, $border-color, $color){
+        background-color: $background;
+        border: 1px solid $border-color;
+        color: $color;
+        font-size: 1.2vw;
+        padding: 0.5vw;
+    }
