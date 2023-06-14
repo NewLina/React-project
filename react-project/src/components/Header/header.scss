@@ -1,9 +1,8 @@
 @import '../general';
-@mixin hover-menu($color) {
+@mixin hover-menu($hover-color) {
     cursor: pointer;
-    color: $color;
-    transform: scale(1.1);
-    transition: color 0.5s, transform 0.5s;
+    color: $hover-color;
+    transition: color 0.5s;
 }
 
 .header{
@@ -50,6 +49,10 @@ column-gap: 30%;
     list-style-type: none;
     color: $white;
     text-decoration: none;
+    &:hover{
+        transform: scale(1.02);
+        transition: transform 0.5s;
+    }
 }
 .navigation-link{
     color: $white;
