@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Search from './components/Search/Search';
 import CardSlider from './components/CardSlider/CardSlider';
+import NoMatch from './components/NoMatchPage/NoMatch';
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,7 +21,8 @@ function App() {
         <main className='main'>
         <Routes>
           <Route path="/game" element={<CardSlider/>}/>;
-          <Route path="/" element={<WordList/>} />;
+          <Route exact path="/" element={<WordList/>} />;
+          <Route path='*' element={<NoMatch/>}></Route>
         </Routes>
         </main>
       <Footer></Footer>
