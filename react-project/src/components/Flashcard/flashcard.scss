@@ -75,3 +75,9 @@ border: none;
         font-size: 3vw;
     }
 }
+
+@media screen and (max-width: 400px){
+    .flashcard{
+        min-height: 220px;
+    }
+}
