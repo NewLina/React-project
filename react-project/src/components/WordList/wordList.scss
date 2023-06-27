@@ -1,6 +1,9 @@
 @import '../general';
 @import '../Buttons/listButtons';
 
+.empty{
+    border-color: $light-red;
+}
 .heading {
     padding: 2vw 0 0 0;
     font-family: $poltawski;
@@ -51,6 +54,7 @@
 .button-cancel {
     @include word-list-button ($light-red, $light-red, $cornsilk);
 }
+
 
 @media screen and (max-width: 699px) {
 .heading {

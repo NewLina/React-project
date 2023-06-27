@@ -5,19 +5,29 @@ const Word = (props) => {
     const {english, transcription, russian} = props;
     const [isEdited, setIsEdited] = useState(false);
     const [data, setData] = useState({english, transcription, russian});
-    const onEditFinished=()=>{
-        setData({english:`new ${english}`, transcription, russian});
+    const [isEmpty, setIsEmpty] = useState(false);
+    const onEditFinished=(e)=>{
+        if (!e.currentTarget?.value) {
+            setIsEmpty(true);
+            return
+        }
+        setData({...data, english: e.currentTarget?.value});
+        setIsEmpty(false);
+    }
+
+    const buttonOnChange = (e) => {
         setIsEdited(false);
     }
+
     const makeEdited = () => {
         setIsEdited(!isEdited);
     }
     if (isEdited) return (
         <tr className='table__item table__item__edited'>
-            <td><input type="text" defaultValue={data.english}/></td>
-            <td><input type="text" defaultValue={data.transcription}/></td>
-            <td><input type="text" defaultValue={data.russian}/></td>
-            <td><button className='button-save' onClick={onEditFinished}>Save</button></td>
+            <td><input className={isEmpty ? 'empty' : ''} type="text" onBlur={onEditFinished} defaultValue={data.english}/></td>
+            <td><input type="text" onBlur={onEditFinished}  defaultValue={data.transcription}/></td>
+            <td><input type="text" onBlur={onEditFinished}  defaultValue={data.russian}/></td>
+            <td><button className='button-save' onClick={buttonOnChange}>Save</button></td>
             <td><button className='button-cancel' onClick={makeEdited}>Cancel</button></td>
         </tr>
     )
