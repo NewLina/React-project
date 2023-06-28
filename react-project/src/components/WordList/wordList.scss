@@ -4,6 +4,18 @@
 .empty{
     border-color: $light-red;
 }
+.full{
+    border: 1px solid $light-green;
+}
+.disabled-btn{
+    cursor: not-allowed;
+}
+.error{
+    color: $light-red;
+    font-weight: $bold;
+    font-size: 1.2vw;
+}
+
 .heading {
     padding: 2vw 0 0 0;
     font-family: $poltawski;
@@ -36,7 +48,6 @@
 
 .table__item__edited input{
     padding: 0.5vw;
-    border: 1px solid $light-green;
     font-size: 1.2vw;
     font-family: $quicksand;
     &:focus{
