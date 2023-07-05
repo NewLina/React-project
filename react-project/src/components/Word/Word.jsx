@@ -1,10 +1,11 @@
 import '../WordList/wordList.scss';
-import {useState} from 'react';
+import {useState, useContext, useEffect} from 'react';
+import dataContext from '../../dataContext';
 
-const Word = (props) => {
-    const {english, transcription, russian} = props;
+const Word = () => {
+    let {data, setData} = useContext(dataContext);
+
     const [isEdited, setIsEdited] = useState(false);
-    const [data, setData] = useState({english, transcription, russian});
     const [isEmpty, setIsEmpty] = useState(false);
     const [isDisabled, setDisabled] = useState(false);
     const [isError, setError] = useState(false);
