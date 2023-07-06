@@ -1,11 +1,10 @@
 import '../WordList/wordList.scss';
-import {useState, useContext, useEffect} from 'react';
-import dataContext from '../../dataContext';
+import {useState, useEffect} from 'react';
 
-const Word = () => {
-    let {data, setData} = useContext(dataContext);
-
+const Word = (props) => {
+    const {english, transcription, russian, id} = props;
     const [isEdited, setIsEdited] = useState(false);
+    const [data, setData] = useState({english, transcription, russian, id});
     const [isEmpty, setIsEmpty] = useState(false);
     const [isDisabled, setDisabled] = useState(false);
     const [isError, setError] = useState(false);
@@ -42,8 +41,23 @@ const Word = () => {
     const makeEdited = () => {
         setIsEdited(!isEdited);
     }
+
+    const deleteWord = (e) => {
+        const deleteUrl=`http://itgirlschool.justmakeit.ru/api/words/${data.id}/delete`;
+        fetch(deleteUrl, {method: 'POST', headers:{'Content-Type':'application/json'}})
+        .then((response)=>{
+            if (!response.ok) {
+                throw new Error('Something went wrong');
+            }
+        }) 
+        .catch((e)=>{
+            return <p>{e}</p>
+        })
+    }
+
+
     if (isEdited) return (
-        <tr className='table__item table__item__edited'>
+        <tr id={data.id} className='table__item table__item__edited'>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished} defaultValue={data.english} name='english'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.transcription} name='transcription'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.russian} name='russian'/></td>
@@ -59,7 +73,7 @@ const Word = () => {
             <td>{data.transcription}</td>
             <td>{data.russian}</td>
             <td><button className='button-edit' onClick={makeEdited}>Edit</button></td>
-            <td><button className='button-delete'>Delete</button></td>
+            <td><button onClick={deleteWord} className='button-delete'>Delete</button></td>
         </tr>
     );
 }

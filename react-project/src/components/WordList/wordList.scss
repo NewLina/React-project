@@ -37,6 +37,16 @@
     padding-right: 2vw;
 }
 
+.table__add-word th{
+    padding-right: 2vw;
+}
+
+.table__add-word input{
+    font-size: 1.7vw;
+    border: none;
+    border-bottom: 2px solid $light-red;
+    border-top: 2px solid $dark-yellow;
+}
 
 .button-edit {
     @include word-list-button ($lemon, $lemon, $russet);
@@ -44,6 +54,10 @@
 
 .button-delete {
     @include word-list-button ($dark-green, $dark-olive, $light-grey);
+}
+
+.add-btn{
+    @include word-list-button ($light-beige, $camel, $russet);
 }
 
 .table__item__edited input{

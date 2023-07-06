@@ -1,31 +1,34 @@
 import './cardSlider.scss';
-import {useState, useEffect, useRef} from 'react';
+import {useState} from 'react';
 import Flashcard from '../Flashcard/Flashcard';
-import {dataList} from '../../data';
+import {useContext} from 'react';
+import dataContext from '../../dataContext';
 
 function CardSlider(props) {
     const {cardIndex} = props;
+    let {data, isLoading, isError} = useContext(dataContext);
     const [index, setIndex] = useState(cardIndex ? cardIndex : 0);
     const [wordsLearned, setWordsLearned] = useState(0);
 
 const countWords = () => {
     let learnedWords=wordsLearned;
 
-    if (learnedWords !== dataList.length) {
+    if (learnedWords !== data.length) {
         setWordsLearned(learnedWords => learnedWords + 1);
     }
 };
 
-const card=dataList.filter((item)=>{return item.id===index});
+const card=data.filter((item, i)=>{
+    return i===index});
 
-const buttonReference = useRef();
+    if (isLoading) {
+        return <p>Loading ...</p>; 
+    }
 
-useEffect(() => {
-    buttonReference.current.focus();
-    console.log(buttonReference.current);
-}, [])
+    if (isError) {
+        return <p>{isError.message}</p>;
+    }
 
-    
     return (
         <>
         <section className='flashcards-container'>
@@ -33,15 +36,15 @@ useEffect(() => {
                 arrow_back_ios_new
             </span></button>
                 {card.map((data)=>{
-                    return <Flashcard {...data} key={data.id} countWords={countWords} ref={buttonReference} />;
+                    return <Flashcard {...data} key={data.id} countWords={countWords}/>;
                     
                 })
                 }
-            <button className='button-arrow button-arrow-right' onClick={()=>{setIndex(index+1)}} disabled={index===dataList.length-1}><span className="material-symbols-outlined">
+            <button className='button-arrow button-arrow-right' onClick={()=>{setIndex(index+1)}} disabled={index===data.length-1}><span className="material-symbols-outlined">
                 arrow_forward_ios
                 </span></button>
         </section>
-        <p className='word-counter'>Words learned : {wordsLearned}/{dataList.length}</p>
+        <p className='word-counter'>Words learned : {wordsLearned}/{data.length}</p>
         </>
     )
 }

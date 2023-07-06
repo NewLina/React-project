@@ -17,16 +17,34 @@ import dataContext from './dataContext';
 function App() {
 
   let [data, setData] = useState([]);
+  let [isLoading, setLoading] = useState(false);
+  let [isError, setError] = useState(null);
 
   useEffect( () => {
+
+    setLoading(true);
     fetch('http://itgirlschool.justmakeit.ru/api/words')
-    .then((response) => response.json())
-    .then((response) => setData(data = response));
+    .then(response => {
+      if (response.ok) { 
+          return response.json();
+      } else {
+          throw new Error('Something went wrong ...');
+      }
+  })
+    .then((response) => {
+      setData(data = response);
+      setLoading(false);
+    })
+    .catch((error) =>{
+    setError(error);
+    setLoading(false);
+    });
+
 }, []);
   
 
   return (
-    <dataContext.Provider value={{data, setData}}>
+    <dataContext.Provider value={{data, setData, isLoading, setLoading, isError, setError}}>
     <Router>
       <>
       <Header></Header>
