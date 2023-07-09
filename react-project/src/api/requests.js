@@ -44,7 +44,7 @@ export const editWord = (id, data) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({...data, tags:"smth",tags_json:"[smth]"})
+        body: JSON.stringify({...data, tags:"животные", tags_json:"[\"u0436u0438u0432u043eu0442u043du044bu0435\"]"})
     })
     .then (response => {
         if (response.ok) { 
