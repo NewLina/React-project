@@ -11,6 +11,7 @@ import {
   Link
 } from 'react-router-dom';
 import dataContext from './dataContext';
+import { getAllWords } from './api/requests';
 
 
 
@@ -19,18 +20,12 @@ function App() {
   let [data, setData] = useState([]);
   let [isLoading, setLoading] = useState(false);
   let [isError, setError] = useState(null);
+  let [gettingAllWords, setGettingAllWords] = useState(0);
 
   useEffect( () => {
 
     setLoading(true);
-    fetch('http://itgirlschool.justmakeit.ru/api/words')
-    .then(response => {
-      if (response.ok) { 
-          return response.json();
-      } else {
-          throw new Error('Something went wrong ...');
-      }
-  })
+    getAllWords()
     .then((response) => {
       setData(data = response);
       setLoading(false);
@@ -40,11 +35,11 @@ function App() {
     setLoading(false);
     });
 
-}, []);
+}, [gettingAllWords]);
   
 
   return (
-    <dataContext.Provider value={{data, setData, isLoading, setLoading, isError, setError}}>
+    <dataContext.Provider value={{data, setData, isLoading, setLoading, isError, setError, setGettingAllWords}}>
     <Router>
       <>
       <Header></Header>

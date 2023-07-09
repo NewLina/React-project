@@ -1,8 +1,10 @@
 import '../WordList/wordList.scss';
 import {useState, useEffect} from 'react';
+import { deleteWord, editWord } from '../../api/requests';
+
 
 const Word = (props) => {
-    const {english, transcription, russian, id} = props;
+    const {id, english, transcription, russian, setGettingAllWords} = props;
     const [isEdited, setIsEdited] = useState(false);
     const [data, setData] = useState({english, transcription, russian, id});
     const [isEmpty, setIsEmpty] = useState(false);
@@ -42,17 +44,18 @@ const Word = (props) => {
         setIsEdited(!isEdited);
     }
 
-    const deleteWord = (e) => {
-        const deleteUrl=`http://itgirlschool.justmakeit.ru/api/words/${data.id}/delete`;
-        fetch(deleteUrl, {method: 'POST', headers:{'Content-Type':'application/json'}})
-        .then((response)=>{
-            if (!response.ok) {
-                throw new Error('Something went wrong');
-            }
-        }) 
-        .catch((e)=>{
-            return <p>{e}</p>
-        })
+    const onDeleteClick = () => {
+        deleteWord(data.id).then(()=>{
+            const random = Math.random()*100;
+            setGettingAllWords(random);
+        });
+    }
+
+    const onEditFinishClick = () =>{
+        editWord(data.id, data).then(()=>{
+            const random = Math.random()*100;
+            setGettingAllWords(random);
+        });
     }
 
 
@@ -61,7 +64,7 @@ const Word = (props) => {
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished} defaultValue={data.english} name='english'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.transcription} name='transcription'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.russian} name='russian'/></td>
-            <td><button disabled = {isDisabled} className={isDisabled? 'button-save disabled-btn':'button-save'} onClick={buttonOnChange}>Save</button></td>
+            <td><button disabled = {isDisabled} className={isDisabled? 'button-save disabled-btn':'button-save'} onClick={onEditFinishClick}>Save</button></td>
             <td><button className='button-cancel' onClick={makeEdited}>Cancel</button></td>
             {isError&& <td> <span className='error'>Only letters are available</span></td>}
         </tr>
@@ -73,7 +76,7 @@ const Word = (props) => {
             <td>{data.transcription}</td>
             <td>{data.russian}</td>
             <td><button className='button-edit' onClick={makeEdited}>Edit</button></td>
-            <td><button onClick={deleteWord} className='button-delete'>Delete</button></td>
+            <td><button onClick={onDeleteClick} className='button-delete'>Delete</button></td>
         </tr>
     );
 }

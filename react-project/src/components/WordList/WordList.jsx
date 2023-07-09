@@ -1,32 +1,28 @@
 import './wordList.scss';
 import Word from '../Word/Word';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useRef} from 'react';
 import dataContext from '../../dataContext';
+import { addNewWord } from '../../api/requests';
+import { v4 as uuidv4 } from 'uuid';
 
 function WordList() {
 
-    let {data, setData, isLoading, isError, setLoading, setError} = useContext(dataContext);
+    let {data, setData, isLoading, isError, setLoading, setError, setGettingAllWords} = useContext(dataContext);
+    let inputTranscription = useRef(null);
+    let inputEnglish = useRef(null);
+    let inputRussian = useRef(null);
 
-//     const addNewWord = () => {
-//     fetch(' http://itgirlschool.justmakeit.ru/api/words/add', {method: 'POST'})
-//     .then(response => {
-//     if (response.ok) { 
-//         return response.json();
-//     } else {
-//         throw new Error('Something went wrong ...');
-//     }
-//   })
-//     .then((response) => {
-//     setData({...data=response, [e.currentTarget.name]: e.currentTarget?.value})
-//     setLoading(false);
-//     })
-//     .catch((error) =>{
-//     setError(error);
-//     setLoading(false);
-//     });
-//         ;
-//     }
-
+    const onAddClick = () => {
+        addNewWord({
+            id: uuidv4(),
+            english: inputEnglish.current.value,
+            transcription: inputTranscription.current.value,
+            russian: inputRussian.current.value
+        }).then(()=>{
+            const random = Math.random()*100;
+            setGettingAllWords(random);
+        });
+    }
 
     if (isLoading) {
         return <p>Loading ...</p>; 
@@ -46,16 +42,16 @@ function WordList() {
                     <th></th>
                 </tr>
                 <tr className='table__add-word'>
-                        <th><input type="text" /></th>
-                        <th><input type="text" /></th>
-                        <th><input type="text" /></th>
-                        <th><button className='add-btn'>Add</button></th>
+                        <th><input type="text" ref={inputEnglish} /></th>
+                        <th><input type="text" ref={inputTranscription}/></th>
+                        <th><input type="text" ref={inputRussian}/></th>
+                        <th><button onClick={onAddClick} className='add-btn'>Add</button></th>
                 </tr>
             </thead>
             <tbody className='table__content'>
                 {
                     data.map ((item) => {
-                        return <Word key={item.id} {...item} />
+                        return <Word key={item.id} {...item} setGettingAllWords={setGettingAllWords}/>
                     })
                 }
             </tbody>
