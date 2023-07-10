@@ -57,7 +57,7 @@
 }
 
 .add-btn{
-    @include word-list-button ($light-beige, $camel, $russet);
+    @include word-list-button ($camel, $camel, $cornsilk);
 }
 
 .table__item__edited input{

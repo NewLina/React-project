@@ -1,5 +1,5 @@
 import '../WordList/wordList.scss';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { deleteWord, editWord } from '../../api/requests';
 
 

@@ -1,13 +1,13 @@
 import './wordList.scss';
 import Word from '../Word/Word';
-import {useContext, useEffect, useRef} from 'react';
+import {useContext, useRef} from 'react';
 import dataContext from '../../dataContext';
 import { addNewWord } from '../../api/requests';
 import { v4 as uuidv4 } from 'uuid';
 
 function WordList() {
 
-    let {data, setData, isLoading, isError, setLoading, setError, setGettingAllWords} = useContext(dataContext);
+    let {data, isLoading, isError, setGettingAllWords} = useContext(dataContext);
     let inputTranscription = useRef(null);
     let inputEnglish = useRef(null);
     let inputRussian = useRef(null);

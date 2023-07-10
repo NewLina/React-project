@@ -39,12 +39,12 @@ export const addNewWord = (data) => {
 };
 
 export const editWord = (id, data) => {
-    return fetch (URLS.UPDATE_WORD.replace('id', id), {
+    return fetch (URLS.UPDATE_WORD.replace(':id', id), {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({...data, tags:"животные", tags_json:"[\"u0436u0438u0432u043eu0442u043du044bu0435\"]"})
+        body: JSON.stringify({...data, tags:"smth", tags_json:"[smth]"})
     })
     .then (response => {
         if (response.ok) { 
