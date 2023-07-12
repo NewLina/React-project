@@ -9,23 +9,30 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+import WordsStore from './api/WordsStore';
 
+const store={
+  wordsStore: new WordsStore()
+};
 
 function App() {
   return (
-    <Router>
-      <>
-      <Header></Header>
-        <main className='main'>
-        <Routes>
-          <Route path="/game" element={<CardsPage/>}/>;
-          <Route end path="/" element={<HomePage/>} />;
-          <Route path='*' element={<ErrorPage/>}></Route>
-        </Routes>
-        </main>
-      <Footer></Footer>
-      </>
-      </Router>
+    <Provider {...store}>
+      <Router>
+        <>
+        <Header></Header>
+          <main className='main'>
+          <Routes>
+            <Route path="/game" element={<CardsPage/>}/>;
+            <Route end path="/" element={<HomePage/>} />;
+            <Route path='*' element={<ErrorPage/>}></Route>
+          </Routes>
+          </main>
+        <Footer></Footer>
+        </>
+        </Router> 
+      </Provider>
   );
 }
 

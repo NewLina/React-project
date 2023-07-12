@@ -1,8 +1,18 @@
 import './wordList.scss';
 import Word from '../Word/Word';
-import {dataList} from '../../data';
+import {inject, observer} from 'mobx-react';
+import {useEffect} from 'react';
 
-function WordList() {
+function WordList({data, isLoading, error}) {
+
+    
+    if (isLoading) {
+        return <p>Loading ...</p>; 
+    }
+    if (error) {
+        return <p>{error}</p>;
+    }
+
     return (
         <table className='table'>
             <caption className='heading'>List of Words</caption>
@@ -16,12 +26,23 @@ function WordList() {
             </thead>
             <tbody className='table__content'>
                 {
-                    dataList.map ((item) => {
+                    data.map ((item) => {
                         return <Word key={item.id} {...item} />
                     })
                 }
             </tbody>
         </table>
     );
-}
-export default WordList;
+};
+
+export default inject (({wordsStore})=>{
+const {data, getAllWords, isLoaded, isLoading, error} = wordsStore;
+useEffect( () => {
+    if(!isLoaded) {
+        getAllWords();
+    }
+},[])
+return {
+    data, getAllWords, isLoaded, isLoading, error
+};
+}) (observer(WordList));

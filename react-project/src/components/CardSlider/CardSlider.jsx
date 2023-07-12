@@ -1,30 +1,23 @@
 import './cardSlider.scss';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import Flashcard from '../Flashcard/Flashcard';
-import {dataList} from '../../data';
+import {inject, observer} from 'mobx-react';
 
-function CardSlider(props) {
+
+function CardSlider({data, isLoading, error, wordsLearned, countWords}, props) {
     const {cardIndex} = props;
     const [index, setIndex] = useState(cardIndex ? cardIndex : 0);
-    const [wordsLearned, setWordsLearned] = useState(0);
 
-const countWords = () => {
-    let learnedWords=wordsLearned;
+const card=data.filter((item, i)=>{
+    return i===index});
 
-    if (learnedWords !== dataList.length) {
-        setWordsLearned(learnedWords => learnedWords + 1);
-    }
-};
 
-const card=dataList.filter((item)=>{return item.id===index});
-
-const buttonReference = useRef();
-
-useEffect(() => {
-    buttonReference.current.focus();
-    console.log(buttonReference.current);
-}, [])
-
+if (isLoading) {
+    return <p>Loading ...</p>; 
+}
+if (error) {
+    return <p>{error}</p>;
+}
     
     return (
         <>
@@ -32,17 +25,28 @@ useEffect(() => {
             <button className='button-arrow button-arrow-left' onClick={()=>{setIndex(index-1)}} disabled={index===0}><span className="material-symbols-outlined">
                 arrow_back_ios_new
             </span></button>
-                {card.map((data)=>{
-                    return <Flashcard {...data} key={data.id} countWords={countWords} ref={buttonReference} />;
+                {card.map((item)=>{
+                    return <Flashcard {...item} key={item.id} countWords={countWords}/>;
                     
                 })
                 }
-            <button className='button-arrow button-arrow-right' onClick={()=>{setIndex(index+1)}} disabled={index===dataList.length-1}><span className="material-symbols-outlined">
+            <button className='button-arrow button-arrow-right' onClick={()=>{setIndex(index+1)}} disabled={index===data.length-1}><span className="material-symbols-outlined">
                 arrow_forward_ios
                 </span></button>
         </section>
-        <p className='word-counter'>Words learned : {wordsLearned}/{dataList.length}</p>
+        <p className='word-counter'>Words learned : {wordsLearned}/{data.length}</p>
         </>
     )
 }
-export default CardSlider;
+
+export default inject (({wordsStore})=>{
+    const {data, getAllWords, isLoaded, isLoading, error, wordsLearned, countWords} = wordsStore;
+    useEffect( () => {
+        if(!isLoaded) {
+            getAllWords();
+        }
+    },[])
+    return {
+        data, getAllWords, isLoaded, isLoading, error, wordsLearned, countWords
+    };
+    }) (observer(CardSlider));
