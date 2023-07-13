@@ -13,18 +13,19 @@ export default class WordsStore{
         makeAutoObservable(this);
     }
 
-    // deleteWord = (id) => {
-    //     const deleteUrl=URLS.DELETE_WORD.replace(':id', id);
-    //     return fetch(deleteUrl, {method: 'POST', headers:{'Content-Type':'application/json'}})
-    //     .then((response)=>{
-    //         if (!response.ok) {
-    //             throw new Error('Something went wrong');
-    //         }
-    //     }) 
-    //     .catch((e)=>{
-    //         return <p>{e}</p>
-    //     })
-    // };
+
+    deleteWord = (id) => {
+        const deleteUrl=URLS.DELETE_WORD.replace(':id', id);
+        return fetch(deleteUrl, {method: 'POST', headers:{'Content-Type':'application/json'}})
+        .then((response)=>{
+            if (!response.ok) {
+                throw new Error('Something went wrong');
+            }
+        }) 
+        .catch((e)=>{
+            return <p>{e}</p>
+        })
+    };
     
     getAllWords = () => {
         this.isLoading=true;
@@ -49,36 +50,61 @@ export default class WordsStore{
         });
     };
     
-    // addNewWord = (data) => {
-    //     return fetch (URLS.ADD_WORD, {
-    //         method: 'POST', 
-    //         body: JSON.stringify(data)
-    //     })
-    //     .then (response => {
-    //         if (response.ok) { 
-    //             return response.json();
-    //         } else {
-    //             throw new Error('Something went wrong ...');
-    //         }
-    //     })
-    // };
+    addNewWord = (newWord) => {
+        this.isLoading=true;
+
+        return fetch (URLS.ADD_WORD, {
+            method: 'POST', 
+            body: JSON.stringify(newWord)
+        })
+        .then (response => {
+            if (response.ok) { 
+                return response.json();
+            } else {
+                throw new Error('Something went wrong ...');
+            }
+        })
+        .then(() => {
+            runInAction(() => {
+
+                this.data.push(newWord);
+                this.isLoading=false;
+            }
+            )
+        })
+        .catch((error) =>{
+            this.error=error;
+            this.isLoading=false;
+        });
+    };
     
-    // editWord = (id, data) => {
-    //     return fetch (URLS.UPDATE_WORD.replace(':id', id), {
-    //         method: 'POST', 
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({...data, tags:"smth", tags_json:"[smth]"})
-    //     })
-    //     .then (response => {
-    //         if (response.ok) { 
-    //             return response.json();
-    //         } else {
-    //             throw new Error('Something went wrong ...');
-    //         }
-    //     })
-    // }
+    editWord = (id, data) => {
+        return fetch (URLS.UPDATE_WORD.replace(':id', id), {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...data, tags:"smth", tags_json:"[smth]"})
+        })
+        .then (response => {
+            if (response.ok) { 
+                return response.json();
+            } else {
+                throw new Error('Something went wrong ...');
+            }
+        })
+        .then((response) => {
+            runInAction(() => {
+                this.data = response;
+                this.isLoading=false;
+            }
+            )
+        })
+        .catch((error) =>{
+            this.error=error;
+            this.isLoading=false;
+        });
+    }
 
     countWords = () => {
         let learnedWords=this.wordsLearned;
@@ -87,5 +113,6 @@ export default class WordsStore{
             this.wordsLearned = this.wordsLearned + 1;
         }
     };
+
 }
 

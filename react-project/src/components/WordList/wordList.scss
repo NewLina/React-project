@@ -59,11 +59,26 @@
 }
 }
 
+.table__add-word th{
+    padding-right: 2vw;
+}
+
+.table__add-word input{
+    font-size: 1.7vw;
+    border: none;
+    border-bottom: 2px solid $light-red;
+    border-top: 2px solid $dark-yellow;
+}
+
 .button-save {
     @include word-list-button ($light-green, $light-green, $cornsilk);
 }
 .button-cancel {
     @include word-list-button ($light-red, $light-red, $cornsilk);
+}
+
+.add-btn{
+    @include word-list-button ($camel, $camel, $cornsilk);
 }
 
 

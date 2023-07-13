@@ -1,7 +1,9 @@
 import '../WordList/wordList.scss';
 import {useState} from 'react';
+import {inject, observer} from 'mobx-react';
 
-const Word = (props) => {
+
+const Word = (props, {data, deleteWord, editWord}) => {
     const {english, transcription, russian} = props;
     const [isEdited, setIsEdited] = useState(false);
     const [data, setData] = useState({english, transcription, russian});
@@ -22,7 +24,7 @@ const Word = (props) => {
             setIsEmpty(false);
             setDisabled(false);
         }
-    }
+    };
 
     const validate = (str) => {
         const reg = new RegExp(/^[^0-9]*$/i);
@@ -32,21 +34,31 @@ const Word = (props) => {
             return true;
         } setError(true); 
         return false;
-    }
+    };
 
     const buttonOnChange = (e) => {
         setIsEdited(false);
-    }
+    };
 
     const makeEdited = () => {
         setIsEdited(!isEdited);
+    };
+
+
+    const onDeleteClick = () => {
+        deleteWord(data.id)
+    };
+    const onEditFinishClick = () =>{
+        editWord(data.id, data);
     }
+
+
     if (isEdited) return (
         <tr className='table__item table__item__edited'>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished} defaultValue={data.english} name='english'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.transcription} name='transcription'/></td>
             <td><input className={isEmpty ? 'empty' : 'full'} type="text" onChange={onEditFinished}  defaultValue={data.russian} name='russian'/></td>
-            <td><button disabled = {isDisabled} className={isDisabled? 'button-save disabled-btn':'button-save'} onClick={buttonOnChange}>Save</button></td>
+            <td><button disabled = {isDisabled} className={isDisabled? 'button-save disabled-btn':'button-save'} onClick={onEditFinishClick}>Save</button></td>
             <td><button className='button-cancel' onClick={makeEdited}>Cancel</button></td>
             {isError&& <td> <span className='error'>Only letters are available</span></td>}
         </tr>
@@ -58,8 +70,13 @@ const Word = (props) => {
             <td>{data.transcription}</td>
             <td>{data.russian}</td>
             <td><button className='button-edit' onClick={makeEdited}>Edit</button></td>
-            <td><button className='button-delete'>Delete</button></td>
+            <td><button className='button-delete' onClick={onDeleteClick}>Delete</button></td>
         </tr>
     );
 }
-export default Word;
+export default inject (({wordsStore})=>{
+    const {deleteWord, data, editWord} = wordsStore;
+    return {
+        deleteWord, data, editWord
+    };
+    }) (observer(Word));
