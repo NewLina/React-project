@@ -4,7 +4,7 @@ import Flashcard from '../Flashcard/Flashcard';
 import {inject, observer} from 'mobx-react';
 
 
-function CardSlider({data, isLoading, error, wordsLearned, countWords}, props) {
+function CardSlider({data, isLoading, error, wordsLearned, countWords, ...props}) {
     const {cardIndex} = props;
     const [index, setIndex] = useState(cardIndex ? cardIndex : 0);
 
