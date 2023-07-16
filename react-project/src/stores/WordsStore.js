@@ -1,4 +1,4 @@
-import { URLS } from "./constants";
+import { URLS } from "../api/constants";
 import {makeAutoObservable, runInAction} from 'mobx';
 
 
@@ -9,10 +9,10 @@ export default class WordsStore{
     isLoading=false;
     wordsLearned=0;
 
+
     constructor(){
         makeAutoObservable(this);
     }
-
 
     deleteWord = (id) => {
         const deleteUrl=URLS.DELETE_WORD.replace(':id', id);
@@ -22,6 +22,9 @@ export default class WordsStore{
                 throw new Error('Something went wrong');
             }
         }) 
+        .then(() => {
+            this.getAllWords();
+        })
         .catch((e)=>{
             return <p>{e}</p>
         })
@@ -39,7 +42,7 @@ export default class WordsStore{
         })
         .then((response) => {
             runInAction(() => {
-                this.data = response;
+                this.data = response.reverse();
                 this.isLoading=false;
             }
             )
@@ -66,8 +69,7 @@ export default class WordsStore{
         })
         .then(() => {
             runInAction(() => {
-
-                this.data.push(newWord);
+                this.data.unshift(newWord);
                 this.isLoading=false;
             }
             )
@@ -93,18 +95,15 @@ export default class WordsStore{
                 throw new Error('Something went wrong ...');
             }
         })
-        .then((response) => {
-            runInAction(() => {
-                this.data = response;
-                this.isLoading=false;
-            }
+        .then(() => {
+            this.getAllWords();
+        }
             )
-        })
         .catch((error) =>{
             this.error=error;
             this.isLoading=false;
         });
-    }
+    };
 
     countWords = () => {
         let learnedWords=this.wordsLearned;

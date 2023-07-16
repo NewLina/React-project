@@ -1,28 +1,37 @@
 import './wordList.scss';
 import Word from '../Word/Word';
 import {inject, observer} from 'mobx-react';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 function WordList({data, isLoading, error, addNewWord}) {
+    const [isDisabled, setDisabled] = useState(true);
     let inputTranscription = useRef(null);
     let inputEnglish = useRef(null);
     let inputRussian = useRef(null);
-    
+
+    const onAddClick = () => {
+            addNewWord({
+                id: uuidv4(),
+                english: inputEnglish.current.value,
+                transcription: inputTranscription.current.value,
+                russian: inputRussian.current.value
+            });
+    };
+
+    const checkIfEmpty = () => {
+        if (Boolean(!inputEnglish.current.value) || Boolean(!inputTranscription.current.value) || Boolean(!inputRussian.current.value)) {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+    }
+
     if (isLoading) {
         return <p>Loading ...</p>; 
     }
     if (error) {
         return <p>{error}</p>;
-    }
-
-    const onAddClick = () => {
-        addNewWord({
-            id: uuidv4(),
-            english: inputEnglish.current.value,
-            transcription: inputTranscription.current.value,
-            russian: inputRussian.current.value
-        });
     }
 
     return (
@@ -36,10 +45,10 @@ function WordList({data, isLoading, error, addNewWord}) {
                     <th></th>
                 </tr>
                 <tr className='table__add-word'>
-                        <th><input type="text" ref={inputEnglish} /></th>
-                        <th><input type="text" ref={inputTranscription}/></th>
-                        <th><input type="text" ref={inputRussian}/></th>
-                        <th><button onClick={onAddClick} className='add-btn'>Add</button></th>
+                        <th><input type="text" ref={inputEnglish} onChange={checkIfEmpty}/></th>
+                        <th><input type="text" ref={inputTranscription} onChange={checkIfEmpty}/></th>
+                        <th><input type="text" ref={inputRussian} onChange={checkIfEmpty}/></th>
+                        <th><button disabled={isDisabled} className={isDisabled? 'add-btn disabled-btn':'add-btn'} onClick={onAddClick} >Add</button></th>
                 </tr>
             </thead>
             <tbody className='table__content'>

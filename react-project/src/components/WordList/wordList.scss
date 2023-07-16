@@ -17,14 +17,14 @@
 }
 
 .heading {
-    padding: 2vw 0 0 0;
     font-family: $poltawski;
     font-weight: $bold;
     font-size: 2.3vw;
     color: $dark-green;
 }
 .table{
-    padding: 1.5vw;
+    max-width: 100%;
+    padding: 1vw 0 1vw 1vw;
     border-collapse: separate;
     border-spacing: 0 1vw;
 }
@@ -92,9 +92,9 @@
 .table__heading th{
     font-size: 3vw;
 }
-.button-edit, .button-delete, .button-save, .button-cancel {
-    font-size: 3vw;
-    padding: 0.5vw;
+.button-edit, .button-delete, .button-save, .button-cancel, .add-btn {
+    font-size: 2.7vw;
+    padding: 0.2vw;
 }}
 
 @media screen and (min-width: 700px) and (max-width: 1399px) {
@@ -107,7 +107,7 @@
 .table__heading th{
     font-size: 2.1vw;
 }
-.button-edit, .button-delete, .button-save, .button-cancel {
+.button-edit, .button-delete, .button-save, .button-cancel, .add-btn  {
     font-size: 2vw;
     padding: 0.5vw;
 }

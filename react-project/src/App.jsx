@@ -10,7 +10,7 @@ import {
   Link
 } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-import WordsStore from './api/WordsStore';
+import WordsStore from './stores/WordsStore';
 
 const store={
   wordsStore: new WordsStore()
