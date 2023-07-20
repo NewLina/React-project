@@ -14,7 +14,7 @@ const Flashcard = (props) => {
         <div className='flashcard__transcription'>{transcription}</div>
         <div className='flashcard__translation' onClick={handleChange} >
             {
-                checked ? <div className='flashcard__russian'>{russian}</div> : <button onClick={countWords} className='flashcard__button'>Проверить</button>
+                checked ? <div className='flashcard__russian'>{russian}</div> : <button onClick={countWords} className='flashcard__button'>Check</button>
             }
         </div>
     </div>
