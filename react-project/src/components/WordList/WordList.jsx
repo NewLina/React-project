@@ -34,7 +34,7 @@ function WordList({data, isLoading, error, addNewWord}) {
         <div className="circle circle-3"></div>
         <div className="circle circle-4"></div>
         <div className="circle circle-5"></div>
-      </div>
+    </div>
     }
     if (error) {
         return <p>{error}</p>;
