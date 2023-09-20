@@ -1,5 +1,6 @@
 # React-project-english-words
-SPA for learning english words with flashcards
+SPA for learning english words with flashcards.
+
 Приложения для изучения английских слов по карточкам.
 
 **О проекте**
